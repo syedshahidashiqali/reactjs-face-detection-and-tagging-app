@@ -24,8 +24,10 @@ function App() {
         width: 940,
         height: 650,
       })
-      
+
       faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
+
+      faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
   }
 
   useEffect(() => {
