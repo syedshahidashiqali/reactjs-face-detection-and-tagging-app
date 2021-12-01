@@ -15,7 +15,17 @@ function App() {
       .withFaceExpressions();
 
       canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(imgRef.current);
-      faceapi.draw.drawDetections(canvasRef.current, detections)
+      faceapi.matchDimensions(canvasRef.current, {
+        width: 940,
+        height: 650,
+      });
+
+      const resizedDetections = faceapi.resizeResults(detections, {
+        width: 940,
+        height: 650,
+      })
+      
+      faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
   }
 
   useEffect(() => {
