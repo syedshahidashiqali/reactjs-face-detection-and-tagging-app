@@ -25,9 +25,15 @@ function App() {
         height: 650,
       })
 
+      // face detection i.e rectangle around the face
       faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
 
+      // face expression i.e happy or something else
       faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
+
+      // face landmarks i.e outline of face in dotted format
+      faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
+
   }
 
   useEffect(() => {
