@@ -1,3 +1,8 @@
+# This project is created with ReactJS, CSS3, HTML5 Canvas, and face-api.js library.
+## You can view this project by the link mentioned below:
+### [https://reactjs-face-detection-app-by-shahid.surge.sh/](https://reactjs-face-detection-app-by-shahid.surge.sh/)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
