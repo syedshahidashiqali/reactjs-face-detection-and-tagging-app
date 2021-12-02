@@ -26,7 +26,7 @@ function App() {
     // file && console.log(URL.createObjectURL(file))
   }, [file]);
 
-  // console.log(image)
+  console.log(image)
 
   return (
     <div>
