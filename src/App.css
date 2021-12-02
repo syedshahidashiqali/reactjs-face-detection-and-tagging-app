@@ -15,7 +15,8 @@ canvas{
     font-size: 20px;
     display: flex;
     align-items: center;
-    padding: 0px 100px;
+    justify-content: center;
+    /* padding: 0px 100px; */
 }
 
 .avatar {
