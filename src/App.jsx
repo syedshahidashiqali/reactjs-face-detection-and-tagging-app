@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import './App.css';
 import NavBar from "./components/NavBar";
 
 function App() {
+
+  const [file, setFile] = useState();
 
   return (
     <div>
@@ -41,6 +44,7 @@ function App() {
               type="file" 
               id="file"
               style={{display:"none"}}
+              onChange={(e) => setFile(e.target.files[0])}
             />
           </div>
         </div>
