@@ -1,64 +1,79 @@
-import { useRef, useEffect } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react/cjs/react.development';
 import './App.css';
-import * as faceapi from "face-api.js";
+import NavBar from "./components/NavBar";
+import NewPost from "./components/NewPost";
 
 function App() {
 
-  const imgRef = useRef();
-  const canvasRef = useRef();
-
-  const handleImage = async() => {
-    // async because face detection takes time
-    const detections = await faceapi
-      .detectAllFaces(imgRef.current, new faceapi.TinyFaceDetectorOptions())
-      .withFaceLandmarks()
-      .withFaceExpressions();
-
-      canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(imgRef.current);
-      faceapi.matchDimensions(canvasRef.current, {
-        width: 940,
-        height: 650,
-      });
-
-      const resizedDetections = faceapi.resizeResults(detections, {
-        width: 940,
-        height: 650,
-      })
-
-      // face detection i.e rectangle around the face
-      faceapi.draw.drawDetections(canvasRef.current, resizedDetections);
-
-      // face expression i.e happy or something else
-      faceapi.draw.drawFaceExpressions(canvasRef.current, resizedDetections);
-
-      // face landmarks i.e outline of face in dotted format
-      faceapi.draw.drawFaceLandmarks(canvasRef.current, resizedDetections);
-
-  }
+  const [file, setFile] = useState();
+  const [image, setImage] = useState();
 
   useEffect(() => {
-    const loadModels = () => {
-      Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-        faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-        faceapi.nets.faceExpressionNet.loadFromUri("/models"),
-      ])
-        .then(handleImage)
-        .catch(err => console.log(err))
-    }
-    imgRef.current && loadModels();
-  }, [])
+    const getImage = () => {
+      const img = new Image();
+      img.src = URL.createObjectURL(file);
+      img.onload = () => {
+
+        setImage({
+          url: img.src,
+          width: img.width,
+          height: img.height
+        });
+      };
+    };
+    file && getImage();
+    // create fake url of file
+    // file && console.log(URL.createObjectURL(file))
+  }, [file]);
+
+  // console.log(image)
+
   return (
-    <div className="app">
-      <img 
-        ref={imgRef}
-        src="https://www.rivermendhealth.com/wp-content/uploads/2018/05/smiling-faces.jpg"
-        alt=""
-        width="940"
-        height="650"
-        crossOrigin="anonymous"
-      />
-      <canvas ref={canvasRef} width={940} height={650} />
+    <div>
+      <NavBar />
+      {image ? (<NewPost image={image} />) : (
+        <div className="newPostCard">
+          <div className="addPost">
+            <img 
+              className="avatar"
+              src="https://images.pexels.com/photos/9371782/pexels-photo-9371782.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" 
+              alt="" 
+            />
+            <div className="postForm">
+              <input 
+                className="postInput"
+                type="text" 
+                placeholder="What's on your mind?"
+              />
+              <label htmlFor="file">
+                  <img
+                    className="addImg"
+                    src="https://cdn.icon-icons.com/icons2/564/PNG/512/Add_Image_icon-icons.com_54218.png"
+                    alt=""
+                  />
+                  <img
+                    className="addImg"
+                    src="https://icon-library.com/images/maps-icon-png/maps-icon-png-5.jpg"
+                    alt=""
+                  />
+                  <img
+                    className="addImg"
+                    src="https://d29fhpw069ctt2.cloudfront.net/icon/image/84451/preview.svg"
+                    alt=""
+                  />
+              <button>Send</button>
+              </label>
+              <input 
+                type="file" 
+                id="file"
+                style={{display:"none"}}
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
