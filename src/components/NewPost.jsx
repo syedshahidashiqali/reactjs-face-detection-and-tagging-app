@@ -2,7 +2,9 @@ import { useRef, useEffect } from 'react';
 import * as faceapi from "face-api.js";
 
 
-const NewPost = () => {
+const NewPost = ({image}) => {
+
+  const { url, width, height } = image;
 
     const imgRef = useRef();
     const canvasRef = useRef();
@@ -16,13 +18,13 @@ const NewPost = () => {
   
         canvasRef.current.innerHTML = faceapi.createCanvasFromMedia(imgRef.current);
         faceapi.matchDimensions(canvasRef.current, {
-          width: 940,
-          height: 650,
+          width,
+          height
         });
   
         const resizedDetections = faceapi.resizeResults(detections, {
-          width: 940,
-          height: 650,
+          width,
+          height
         })
   
         // face detection i.e rectangle around the face
@@ -50,16 +52,19 @@ const NewPost = () => {
     }, []);
 
   return (
-    <div>
+    <div style={{display:"flex", justifyContent:"center", marginTop:"20px"}}>
       <img
         ref={imgRef}
-        src="https://www.rivermendhealth.com/wp-content/uploads/2018/05/smiling-faces.jpg"
+        // src="https://www.rivermendhealth.com/wp-content/uploads/2018/05/smiling-faces.jpg"
+        src={url}
         alt=""
-        width="940"
-        height="650"
+        // width="940"
+        // height="650"
+        width={width}
+        height={height}
         crossOrigin="anonymous"
       />
-      <canvas ref={canvasRef} width={940} height={650} />
+      <canvas ref={canvasRef} width={width} height={height} />
     </div>
   );
 };

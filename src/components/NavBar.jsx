@@ -1,7 +1,9 @@
 const NavBar = () => {
     return (
         <div className="navbar">
-            <span>LamaSocial</span>
+            <a href="/" style={{textDecoration: "none", color: "white"}}>
+                <span>MySocial</span>
+            </a>
         </div>
     );
 };
