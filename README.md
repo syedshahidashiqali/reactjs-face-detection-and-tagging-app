@@ -2,6 +2,9 @@
 ## You can view this project by the link mentioned below:
 ### [https://reactjs-face-detection-app-by-shahid.surge.sh/](https://reactjs-face-detection-app-by-shahid.surge.sh/)
 
+## Demo:
+![Preview](/face-detection-demo.gif)
+
 
 # Getting Started with Create React App
 
